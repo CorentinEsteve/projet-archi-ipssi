@@ -5,7 +5,7 @@ var folderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    folderName: {
+    folderLabel: {
         type: String,
         required: true
     }

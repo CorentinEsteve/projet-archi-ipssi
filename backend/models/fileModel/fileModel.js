@@ -13,7 +13,15 @@ var fileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    fileLabel : {
+        type: String,
+        required: true
+    },
     filePath: {
+        type: String,
+        required: true
+    },
+    fileSizeMb: {
         type: String,
         required: true
     }

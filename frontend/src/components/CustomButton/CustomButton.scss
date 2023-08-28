@@ -1,0 +1,49 @@
+@use "../../utils/constants/constants.scss" as *;
+
+.Button {
+
+    display: flex;
+    align-items: center;
+    min-width: 70px;
+    max-width: 250px;
+    height: 30px;
+    background-color: $primaryColor;
+    transition: 0.3s;
+    margin: 10px;
+    padding-left: 20px;
+    color: rgba($color: $secondaryColor, $alpha: 0);
+
+    &_text {
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }
+
+    &:hover {
+        cursor: pointer;
+        transition: 0.3s;
+        transform: scale(1.05);
+        background-color: $secondaryColor;
+    }
+
+}
+
+.text {
+    background-color: rgba(5, 130, 255, 0);
+    border : none;
+    color: $primaryColor;
+   
+}
+
+.contained {
+    background-color: $primaryColor;
+}
+
+.outlined {
+    background-color: rgba(25, 118, 210,0);
+    color: $primaryColor;
+}
+

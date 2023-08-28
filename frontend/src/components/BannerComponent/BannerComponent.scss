@@ -1,0 +1,20 @@
+.BanniereArchitech {
+    width: 100%;
+    height: 15vh;
+    background-color: #E8454E;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    
+    &__title {
+        color: white;
+    }
+}
+
+@media screen and (max-width:768px){
+    .BanniereArchitech {
+        height: auto;
+    }
+}

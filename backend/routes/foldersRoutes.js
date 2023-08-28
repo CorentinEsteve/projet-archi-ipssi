@@ -4,10 +4,10 @@ const folderController = require("../controllers/folderController/folderControll
 
 const router = express.Router();
 
-router.get("/", folderController.getFolder);
+router.get("/", protect, folderController.getFolder);
 
-router.post("/", folderController.addFolder);
+router.post("/", protect, folderController.addFolder);
 
-router.delete("/:id", folderController.deleteFolder);
+router.delete("/:id", protect, folderController.deleteFolder);
 
 module.exports = router;

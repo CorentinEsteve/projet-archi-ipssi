@@ -1,0 +1,50 @@
+@use "../../utils/constants/constants.scss" as *;
+
+.CheckBox {
+    background-color: rgba(128, 128, 128, 0.411);
+    width: 40px;
+    height: 15px;
+    margin-left: 100px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+    &_ball {
+        background-color: rgb(128, 128, 128);
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        outline : 0.1px solid rgba(128,128,128,0.5);
+          
+        &:hover {
+            cursor: pointer;
+            outline: 6px solid rgba(128,128,128,0.3);
+            transition: 0.3s;
+        }
+    }
+
+    &_input {
+        width: 60px;
+        height: 15px;
+        border-radius: 10px;
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
+}
+
+.CheckBox_ball--checked {
+    transform: translateX(20px);
+    background-color: $primaryColor;
+
+        &:hover {
+            outline: 6px solid rgba(25, 118, 210, 0.1);
+            cursor:pointer;
+        }        
+}
+
+.CheckBox--checked {
+    background-color: rgba(25, 118, 210, 0.411);
+
+}

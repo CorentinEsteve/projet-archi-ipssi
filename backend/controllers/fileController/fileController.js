@@ -3,6 +3,7 @@ const path = require("path");
 const { asyncWrapper } = require("../../functions/functions");
 const { findById } = require("../../models/userModel/userModel");
 const userModel = require("../../models/userModel/userModel");
+const DeleteLocalFile = require("../../functions/deleteLocalFile");
 
 const getOneFile = async (req, res) => {
     try {
@@ -23,6 +24,7 @@ const getFiles = async (req, res) => {
         console.log(error);
     }
 }
+
 const getFolderFiles = async (req, res) => {
     try {
         const filesFound = await fileModel.find({folderId: req.params.folderId})
@@ -42,10 +44,14 @@ const addFile = asyncWrapper( async (req, res) => {
         const folderId = req.body.folderId;
 
         const userFound = await userModel.findById(userId);
+
         const userFoundTotalStorageUsed = userFound.totalSorageUsed;
         const newTotalStorageUsed = userFoundTotalStorageUsed + fileSizeMb;
+
+        const userFoundTotalFileNumber = userFound.numberOfFiles;
+        const newTotalFileNumber = userFoundTotalFileNumber + 1;
     
-        await userModel.findByIdAndUpdate(userId, {totalSorageUsed : newTotalStorageUsed});
+        await userModel.findByIdAndUpdate(userId, {totalSorageUsed : newTotalStorageUsed, numberOfFiles : newTotalFileNumber});
 
         const file = await fileModel.create({fileName, filePath, folderId, userId, fileLabel, fileSizeMb});
         res.status(201).json({ file })
@@ -63,9 +69,13 @@ const deleteFile = asyncWrapper( async (req, res) => {
 
         const newTotalStorageUsed = userFound.totalSorageUsed - fileSizeMb;
 
-        await userModel.findByIdAndUpdate(userId, {totalSorageUsed: newTotalStorageUsed});
+        const userFoundTotalFileNumber = userFound.numberOfFiles;
+        const newTotalFileNumber = userFoundTotalFileNumber - 1;
+
+        await userModel.findByIdAndUpdate(userId, {totalSorageUsed: newTotalStorageUsed, numberOfFiles : newTotalFileNumber});
 
         const fileDeleted = await fileModel.findOneAndDelete({_id : fileId});
+        DeleteLocalFile(fileDeleted.filePath);
 
         res.status(200).json(fileDeleted);
 
@@ -76,17 +86,24 @@ const deleteFile = asyncWrapper( async (req, res) => {
 })
 
 const downloadFile = asyncWrapper(async (req,res) => {
- 
-    const fileFound = await fileModel.findById(req.params.id);
 
-    if(!fileFound){
-        return next(new Error("No file found"))
+    try {
+
+        const fileFound = await fileModel.findById(req.params.id);
+    
+        if(!fileFound){
+            return next(new Error("No file found"))
+        }
+    
+        const fileName = fileFound.fileName;
+        const fileLocalPath = path.join(__dirname, `../../uploads/${fileName}`);
+    
+        res.status(200).download(fileLocalPath);
+        
+    }catch (error){
+        console.log(error);
     }
-
-    const fileName = fileFound.fileName;
-    const fileLocalPath = path.join(__dirname, `../../uploads/${fileName}`);
-
-    res.download(fileLocalPath);
+ 
 })
 
 module.exports = { getOneFile, addFile, downloadFile, deleteFile, getFiles, getFolderFiles };

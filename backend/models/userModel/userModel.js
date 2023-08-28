@@ -15,20 +15,16 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     address: {
-        type: String,
-        required: true
+        type: String
     },
     city: {
-        type: String,
-        required: true
+        type: String
     },
     country: {
-        type: String,
-        required: true
+        type: String
     },
     postalCode: {
-        type: String,
-        required: true
+        type: String
     },
     password: { 
         type: String,
@@ -38,10 +34,12 @@ var userSchema = new mongoose.Schema({
         type: Number
     },
     numberOfFolders: {
-        type: Number
+        type: Number,
+        default : 0
     },
     numberOfFiles: {
-        type: Number
+        type: Number,
+        default: 0
     },
     userUniqueNumber: {
         type: String

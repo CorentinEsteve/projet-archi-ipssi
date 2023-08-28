@@ -1,0 +1,29 @@
+.AuthenticationSection {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/authentication-bg-image.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.AuthenticationContainer {
+    height: 90vh;
+    width: 530px;
+    background-color: #0C3B66;
+    border-radius: 5px;
+    margin: 0 50px;
+}
+
+@media screen and (max-width: 768px){
+    .AuthenticationSection {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .AuthenticationContainer {
+        margin: 20px;
+    }
+}

@@ -5,17 +5,13 @@ const { protect } = require("../functions/auth/authFunctions");
 
 const router = express.Router();
 
-//router.route("/download/:id").get(downloadFile);
-//router.route("/").get(getFiles).post(upload.single("file"), addFile);
-router.get("/", fileController.getFiles);
-router.get("/:id", fileController.getOneFile);
-router.get("/folder-files/:folderId", fileController.getFolderFiles);
-
-
-router.get("/download/:id", fileController.downloadFile);
+router.get("/", protect, fileController.getFiles);
+router.get("/:id", protect, fileController.getOneFile);
+router.get("/folder-files/:folderId", protect, fileController.getFolderFiles);
+router.get("/download/:id", protect, fileController.downloadFile);
 
 router.post("/", upload.single("file"), fileController.addFile);
 
-router.delete("/", fileController.deleteFile);
+router.delete("/", protect, fileController.deleteFile);
 
 module.exports = router;

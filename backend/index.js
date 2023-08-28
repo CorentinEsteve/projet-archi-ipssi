@@ -8,13 +8,15 @@ const filesRoutes = require("../backend/routes/filesRoutes.js");
 const invoicesRoutes = require("../backend/routes/invoicesRoutes.js");
 const foldersRoutes = require("../backend/routes/foldersRoutes.js");
 const usersRoutes = require("../backend/routes/usersRoutes.js");
+const cors = require("cors");
 
 ConnectDb();
 
 // Middlewares
 app.use(express.json());
-app.use(bodyParser.json({limit: '100kb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '100kb', extended: true}))
+app.use(bodyParser.json({limit: '250kb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '250kb', extended: true}))
+app.use(cors())
 
 
 
@@ -27,7 +29,7 @@ app.use("/api/v1/users", usersRoutes);
 
 // Authentication routes
 app.post("/api/v1/signUp", UserController.SignUp);
-app.get("/api/v1/logIn", UserController.LogIn);
+app.post("/api/v1/logIn", UserController.LogIn);
 
 
 app.listen(port, () => {

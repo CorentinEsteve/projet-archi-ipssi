@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.patch("/avatar/update/:id", upload.single("file"), userController.UpdateUserAvatar);
 
-router.get("/", userController.GetAllUsers);
+router.get("/", protect, userController.GetAllUsers);
 
-router.delete("/:id", userController.deleteUser);
+router.delete("/:id", protect, userController.deleteUser);
 
 module.exports = router;

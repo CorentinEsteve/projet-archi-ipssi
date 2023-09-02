@@ -1,0 +1,100 @@
+@use "../../utils/constants/constants.scss" as *;
+
+.AddFolderButtonComponent {
+    margin: 10px;
+
+    &_container {
+        width: 500px;
+        height: 130px;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 0 5px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transform: translateY(0);
+        animation: showAlertAnimation 0.3s ease-out;
+    
+    }
+
+    &_item{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        box-shadow: 0 0 2px;
+        max-width: 200px;
+        border-radius: 20px;
+        height: 40px;
+        background-color: $primaryColor;
+        padding: 0 10px;
+        color: white;
+        transition: 0.3s;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.9;
+        }
+    }
+
+    &_background {
+        display: none;
+
+        &--displayed {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 60;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.197);
+        }
+    }
+
+    &_description {
+       color: grey;
+    }
+    
+
+    &_buttons {    
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+    }
+
+    &_button {
+        margin: 0 5px;
+        color: $primaryColor;
+        padding: 8px;
+        font-weight: bold;
+        max-width: 130px;
+        text-align: center;
+        border-radius: 3px;
+
+        &--outlined {
+            border: 1px solid $primaryColor;
+
+        }
+
+        &:hover {
+            transition: 0.3s;
+            background-color: rgba(162, 208, 255, 0.314);        
+            cursor: pointer;
+        }
+    }
+}
+
+@keyframes showAlertAnimation {
+    from {
+        transform: translateY(200px);
+    }
+    to {
+        transform: translateY(0px);   
+    }
+}

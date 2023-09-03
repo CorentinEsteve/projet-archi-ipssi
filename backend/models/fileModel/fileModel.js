@@ -22,7 +22,7 @@ var fileSchema = new mongoose.Schema({
         required: true
     },
     fileSizeMb: {
-        type: String,
+        type: Number,
         required: true
     }
 },{

@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 export type User = {
     name: string,
     email: string,
-    firstName: string
+    firstName: string,
+    _id: string,
+    totalStorageUsed: number,
+    numberOfFolders: number,
+    numberOfFiles: number
 }
 
 export interface UserContextInterface {
@@ -16,7 +20,11 @@ const defaultState = {
     user: {
         name: "",
         email: "",
-        firstName:""
+        firstName:"",
+        _id:"",
+        totalStorageUsed: 0,
+        numberOfFolders: 0,
+        numberOfFiles: 0
     },
     setUser: (user: User) => {}
 } as UserContextInterface;
@@ -33,7 +41,11 @@ export default function UserProvider( {children} : userProviderProps){
     const [user, setUser] = useState<User>({
         name: "",
         email:"",
-        firstName:""
+        firstName:"",
+        _id:"",
+        totalStorageUsed: 0,
+        numberOfFolders: 0,
+        numberOfFiles: 0
     });
 
  //   let navigate = useNavigate();
@@ -42,8 +54,9 @@ export default function UserProvider( {children} : userProviderProps){
      
         const currentUser = JSON.parse(localStorage.getItem("currentUser") ?? "{}");
 
+        console.log("inside userContext", currentUser)
         if(currentUser != "{}"){
-            setUser({name: currentUser.name, firstName: currentUser.firstName, email: currentUser.email});
+            setUser({name: currentUser.name, firstName: currentUser.firstName, email: currentUser.email, _id: currentUser._id, totalStorageUsed: currentUser.totalStorageUsed, numberOfFiles: currentUser.numberOfFiles, numberOfFolders:currentUser.numberOfFolders});
            // navigate("/userDashboard");
         }
     },[])

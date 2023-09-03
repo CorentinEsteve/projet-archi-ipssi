@@ -1,5 +1,9 @@
 @use "../../utils/constants/constants.scss" as *;
 
+.UserDashboard {
+    display: flex;
+}
+
 .UserNavBar{
     width: 250px;
     height: 95vh;
@@ -33,7 +37,6 @@
     &__profileBloc{
         width: 100%;
         height: 7vh;
-        background-color: green;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -59,7 +62,42 @@
 .StorageIndicatorComponent{
     height: 20vh;
     width: 250px;
-    background-color: purple;
+    border-bottom: 2px solid $secondaryColor;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    &__title{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin: 5px;
+        
+    }
+
+    &__blocProgress{
+        height: 3px;
+        width: 200px;
+        background-color: grey;
+        margin: 5px;
+    }
+
+    &__progress {
+        height: 3px;
+        width: 90px;
+        background-color: white;
+    }
+
+    &__checkStorage {
+        margin: 5px;
+    }
+
+    &__linkIncreaseStorage {
+        margin: 5px;
+    }
 }
 
 @media screen and (max-width: 768px){
@@ -84,17 +122,17 @@
         &__middleBloc{
             position: absolute;
             background-color: $primaryColor;
-            height: 92vh;
-            margin-top: 8vh;
-            transition: 0.3s;
-            
-            &--open {
-                transform: translateX(0);
-            }
+            height: 5vh;
+            width: 100vw;
+            margin-top: 7.5vh;
+        }
 
-            &--close {
-                transform: translateX(-100vw);
-            }
+        &__navigations {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding-top: 0vh;
         }
 
         &__profileBloc {
@@ -106,5 +144,9 @@
             justify-content: center;
             align-items: center;
         }
+    }
+
+    .StorageIndicatorComponent{
+        display: none;
     }
 }

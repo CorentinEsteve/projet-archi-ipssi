@@ -5,7 +5,6 @@ const { protect } = require("../functions/auth/authFunctions");
 
 const router = express.Router();
 
-
 router.patch("/avatar/update/:id", upload.single("file"), userController.UpdateUserAvatar);
 
 router.get("/", protect, userController.GetAllUsers);

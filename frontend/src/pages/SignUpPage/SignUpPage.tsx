@@ -31,7 +31,7 @@ const SignUpPage = () => {
 
         fetch("http://localhost:3350/api/v1/signUp", options)
         .then(response => response.json())
-        .then( data => {console.log("my datas :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email});})
+        .then( data => {console.log("my datas :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email, _id: data.user._id, numberOfFiles:data.user.numberOfFiles, numberOfFolders: data.user.numberOfFolders, totalStorageUsed: data.user.totalStorageUsed});})
         .catch(err => console.log(err));
     }
 

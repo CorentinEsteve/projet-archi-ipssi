@@ -4,7 +4,7 @@ const folderController = require("../controllers/folderController/folderControll
 
 const router = express.Router();
 
-router.get("/", protect, folderController.getFolder);
+router.get("/:userId", protect, folderController.getCurrentUserFolders);
 
 router.post("/", protect, folderController.addFolder);
 

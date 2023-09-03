@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react'
 import TextField from '../../components/TextField/TextField';
 import "./LogInPage.scss";
 import { UserContext } from '../../utils/contexts/userContext';
-import { Outlet, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const LogInPage = () => {
 
@@ -29,7 +28,7 @@ const LogInPage = () => {
 
       fetch("http://localhost:3350/api/v1/logIn", options)
       .then(response => response.json())
-      .then( data => {console.log("my datas login :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email}); localStorage.setItem("currentUser", JSON.stringify(data.user)); localStorage.setItem("token", data.token); data.token!=null && navigate("/userDashboard")})
+      .then( data => {console.log("my datas login :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email, _id: data.user._id, numberOfFiles:data.user.numberOfFiles, numberOfFolders: data.user.numberOfFolders, totalStorageUsed: data.user.totalStorageUsed}); localStorage.setItem("currentUser", JSON.stringify(data.user)); localStorage.setItem("token", data.token); data.token!=null && navigate("/userDashboard")})
       .catch(err => console.log(err));
   }
 

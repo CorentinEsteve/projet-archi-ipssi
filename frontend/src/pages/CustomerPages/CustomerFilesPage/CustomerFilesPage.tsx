@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import "./MyFilesPage.scss";
+import "./CustomerFilesPage.scss";
 import { useLocation } from "react-router-dom";
-import { UserContext } from '../../utils/contexts/userContext';
-import AlertComponent from '../../components/AlertComponent/AlertComponent';
-import TextField from '../../components/TextField/TextField';
-import ItemComponent from '../../components/ItemComponent/ItemComponent';
-import DownloadSvg from '../../assets/svg/DownloadSvg';
-import useFetchFiles from '../../utils/hooks/useFetchFiles';
-import useFetch from '../../utils/hooks/useFetch';
+import { UserContext } from '../../../utils/contexts/userContext';
+import AlertComponent from '../../../components/AlertComponent/AlertComponent';
+import TextField from '../../../components/TextField/TextField';
+import ItemComponent from '../../../components/ItemComponent/ItemComponent';
+import DownloadSvg from '../../../assets/svg/DownloadSvg';
+import useFetchFiles from '../../../utils/hooks/useFetchFiles';
+import useFetch from '../../../utils/hooks/useFetch';
 
-const MyFilesPage = () => {
+const CustomerFilesPage = () => {
 
     const location = useLocation();
     const folderId = location.state.folderInfo._id;
@@ -81,4 +81,4 @@ const MyFilesPage = () => {
   )
 }
 
-export default MyFilesPage
+export default CustomerFilesPage

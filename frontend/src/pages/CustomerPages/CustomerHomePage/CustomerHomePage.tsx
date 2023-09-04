@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import "./MyHomePage.scss";
-import { UserContext } from '../../utils/contexts/userContext';
+import "./CustomerHomePage.scss";
+import { UserContext } from '../../../utils/contexts/userContext';
 
-const MyHomePage = () => {
+const CustomerHomePage = () => {
     const {user, setUser} = useContext(UserContext);
     
   return (
@@ -10,8 +10,9 @@ const MyHomePage = () => {
         <p>Total stockage utilisés : {user.totalStorageUsed}</p>
         <p> Nombre total de fichiers : {user.numberOfFiles}</p>
         <p> Nombre total de dossiers : {user.numberOfFolders}</p>
+        <p> Total storage purchased : {user.totalStoragePurchased}</p>
     </div>
   )
 }
 
-export default MyHomePage
+export default CustomerHomePage

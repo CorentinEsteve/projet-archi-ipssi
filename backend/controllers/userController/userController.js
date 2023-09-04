@@ -83,9 +83,9 @@ const GetAllUsers = asyncWrapper( async (req, res) => {
 
   try {
     
-  const AllUsers = await userModel.find()
+  const allCustomers = await userModel.find()
 
-  res.status(200).json(AllUsers);
+  res.status(200).json(allCustomers);
 
   }catch(error){
     console.log(error);
@@ -96,24 +96,33 @@ const GetAllUsers = asyncWrapper( async (req, res) => {
 const deleteUser = asyncWrapper( async (req, res) => {
 
   try {
+
     
     const userId = req.params.id;
+    console.log("1", userId);
 
     const foldersFound = await folderModel.find({userId});
+    console.log("2",foldersFound);
+
 
     foldersFound.map(async(folder) => {
       await folderModel.findByIdAndDelete(folder._id);
     })
 
     const filesFound = await fileModel.find({userId});
+    console.log("3",filesFound);
+
 
     filesFound.map(async(file) => {
       await fileModel.findByIdAndDelete(file._id);
     })
 
-    const userDeleted = await userModel.findByIdAndDelete(userId)
+    const userDeleted = await userModel.findByIdAndDelete(userId);
+    console.log("4",userDeleted);
 
-    res.status(200).json({userDeleted, filesDeleted : filesFound, foldersDeleted : foldersFound });
+
+
+    res.status(200).json(userDeleted);
     
   }catch(error){
     console.log(error);
@@ -121,4 +130,34 @@ const deleteUser = asyncWrapper( async (req, res) => {
 
 });
 
-module.exports = {SignUp, LogIn, UpdateUserAvatar, GetAllUsers, deleteUser};
+const addStorageAfterPayment = asyncWrapper( async(req, res) => {
+
+  try{
+
+    const userId = req.body.userId;
+    console.log("userid in add storage fctn",userId);
+    console.log("bodyyy", req.body);
+    
+    const userFound = await userModel.findById(userId);
+
+    console.log("useriiiid", userFound);
+    
+    const currentTotalStoragePurchased = userFound.totalStoragePurchased;
+
+    
+    console.log("storage purchased", currentTotalStoragePurchased);
+    const newTotalStoragePurchased = currentTotalStoragePurchased + 20;
+
+    console.log("storage purchased 2", newTotalStoragePurchased);
+    
+    const userUpdated = await userModel.findByIdAndUpdate(userId, {totalStoragePurchased : newTotalStoragePurchased});
+    console.log("storage purchased 3", userUpdated);
+    
+    res.status(200).json(userUpdated);
+
+  }catch(error){
+    console.log(error);
+  }
+})
+
+module.exports = {SignUp, LogIn, UpdateUserAvatar, GetAllUsers, deleteUser, addStorageAfterPayment};

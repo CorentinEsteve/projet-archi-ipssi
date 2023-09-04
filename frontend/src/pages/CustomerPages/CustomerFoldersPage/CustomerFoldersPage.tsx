@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import "./MyFoldersPage.scss";
-import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../utils/contexts/userContext';
-import AlertComponent from '../../components/AlertComponent/AlertComponent';
-import TextField from '../../components/TextField/TextField';
-import ItemComponent from '../../components/ItemComponent/ItemComponent';
-import DeleteSvg from '../../assets/svg/DeleteSvg';
-import DownloadSvg from '../../assets/svg/DownloadSvg';
-import useFetchFolders from '../../utils/hooks/useFetchFolders';
-import createNewFolder from '../../utils/functions/createNewFolder';
-import useFetch from '../../utils/hooks/useFetch';
+import React, { useContext, useState } from 'react'
+import "./CustomerFoldersPage.scss";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../../utils/contexts/userContext';
+import AlertComponent from '../../../components/AlertComponent/AlertComponent';
+import TextField from '../../../components/TextField/TextField';
+import ItemComponent from '../../../components/ItemComponent/ItemComponent';
+import useFetchFolders from '../../../utils/hooks/useFetchFolders';
+import useFetch from '../../../utils/hooks/useFetch';
 
 
-const MyFoldersPage =  () => {
+const CustomerFoldersPage =  () => {
     const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("currentUser")!);
 
@@ -22,7 +19,7 @@ const MyFoldersPage =  () => {
 
 
     function RedirectToFilesPage(element:any){
-      navigate("/userDashboard/files", {state: {folderInfo : element}})
+      navigate("/customerDashboard/files", {state: {folderInfo : element}});
     };
 
     function HandleInputData(e:any){
@@ -73,4 +70,4 @@ const MyFoldersPage =  () => {
   )
 }
 
-export default MyFoldersPage
+export default CustomerFoldersPage

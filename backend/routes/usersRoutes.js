@@ -11,4 +11,6 @@ router.get("/", protect, userController.GetAllUsers);
 
 router.delete("/:id", protect, userController.deleteUser);
 
+router.patch("/addStorageAfterPayment", protect, userController.addStorageAfterPayment)
+
 module.exports = router;

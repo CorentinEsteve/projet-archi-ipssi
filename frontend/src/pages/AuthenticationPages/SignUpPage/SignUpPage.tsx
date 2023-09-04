@@ -1,11 +1,12 @@
 import React from 'react'
-import TextField from '../../components/TextField/TextField';
+import TextField from '../../../components/TextField/TextField';
 import "./SignUpPage.scss";
 import { useState, useContext } from 'react';
 import axios from "axios";
-import { UserContext } from '../../utils/contexts/userContext';
-import sendConfirmationSignUpEmail from '../../utils/functions/sendConfirmationSignUpEmail';
+import { UserContext } from '../../../utils/contexts/userContext';
+import sendConfirmationSignUpEmail from '../../../utils/functions/sendConfirmationSignUpEmail';
 import { Link } from 'react-router-dom';
+import useFetch from '../../../utils/hooks/useFetch';
 
 const SignUpPage = () => {
 
@@ -17,23 +18,18 @@ const SignUpPage = () => {
         setSignUpForm({...signUpForm, [e.target.name]: e.target.value})
     }
 
-    function SendSignUpForm(){
+    async function SendSignUpForm(){
 
         sendConfirmationSignUpEmail(signUpForm.name, signUpForm.email)
-      
-        const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(signUpForm)
-        }
 
-        fetch("http://localhost:3350/api/v1/signUp", options)
-        .then(response => response.json())
-        .then( data => {console.log("my datas :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email, _id: data.user._id, numberOfFiles:data.user.numberOfFiles, numberOfFolders: data.user.numberOfFolders, totalStorageUsed: data.user.totalStorageUsed});})
-        .catch(err => console.log(err));
-    }
+        const url = "http://localhost:3350/api/v1/signUp";
+
+        const { user } = await useFetch("POST", url, JSON.stringify(signUpForm));
+        const {name, firstName, email, _id, numberOfFiles, numberOfFolders, totalStorageUsed, totalStoragePurchased} = user;
+
+        setUser({name, firstName, email, _id, numberOfFiles, numberOfFolders, totalStorageUsed, totalStoragePurchased});
+
+     }
 
   return (
     <div className='SignUpPage'>

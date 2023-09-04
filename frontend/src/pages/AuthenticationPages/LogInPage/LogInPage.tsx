@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import TextField from '../../components/TextField/TextField';
+import TextField from '../../../components/TextField/TextField';
 import "./LogInPage.scss";
-import { UserContext } from '../../utils/contexts/userContext';
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { UserContext } from '../../../utils/contexts/userContext';
+import { Link, useNavigate } from "react-router-dom";
+import useFetch from '../../../utils/hooks/useFetch';
 
 const LogInPage = () => {
 
@@ -16,20 +17,29 @@ const LogInPage = () => {
       setLogInForm({...logInForm, [e.target.name]: e.target.value})
   }
 
-  function SendLogInForm(){
+  async function SendLogInForm(){
 
-      const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(logInForm)
-      }
+     const url = "http://localhost:3350/api/v1/logIn";
+     const body = JSON.stringify(logInForm);
 
-      fetch("http://localhost:3350/api/v1/logIn", options)
-      .then(response => response.json())
-      .then( data => {console.log("my datas login :",data); setUser({ name: data.user.name, firstName: data.user.firstName, email: data.user.email, _id: data.user._id, numberOfFiles:data.user.numberOfFiles, numberOfFolders: data.user.numberOfFolders, totalStorageUsed: data.user.totalStorageUsed}); localStorage.setItem("currentUser", JSON.stringify(data.user)); localStorage.setItem("token", data.token); data.token!=null && navigate("/userDashboard")})
-      .catch(err => console.log(err));
+     const {user, token} = await useFetch("POST",url,body);
+
+     if(user){
+
+       const {name, firstName, email, _id, numberOfFiles, numberOfFolders, totalStorageUsed, role} = user;
+       setUser({ name, firstName, email, _id, numberOfFiles, numberOfFolders, totalStorageUsed}); 
+       localStorage.setItem("currentUser", JSON.stringify(user)); 
+       localStorage.setItem("token",token);
+
+       if(token!=null && role=="customer"){
+        navigate("/customerDashboard");
+       }
+       
+       if (token !=null && role=="admin"){
+        navigate("/adminDashboard");
+       }
+     }
+
   }
 
   return (

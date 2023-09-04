@@ -83,9 +83,9 @@ const GetAllUsers = asyncWrapper( async (req, res) => {
 
   try {
     
-  const AllUsers = await userModel.find()
+  const allCustomers = await userModel.find()
 
-  res.status(200).json(AllUsers);
+  res.status(200).json(allCustomers);
 
   }catch(error){
     console.log(error);

@@ -1,16 +1,17 @@
 import './App.css';
-import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
+import AuthenticationPage from './pages/AuthenticationPages/AuthenticationPage/AuthenticationPage';
 import { useContext, createContext, useState } from 'react';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserProvider from './utils/contexts/userContext';
-import UserDashboard from './pages/UserDashboard/UserDashboard';
-import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
-import SignUpPage from './pages/SignUpPage/SignUpPage';
-import LogInPage from './pages/LogInPage/LogInPage';
-import MyFoldersPage from './pages/MyFoldersPage/MyFoldersPage';
-import MyFilesPage from './pages/MyFilesPage/MyFilesPage';
-import MyHomePage from './pages/MyHomePage/MyHomePage';
+import CustomerDashboard from './pages/CustomerPages/CustomerDashboard/CustomerDashboard';
+import AdminDashboard from './pages/AdminPages/AdminDashboard/AdminDashboard';
+import SignUpPage from './pages/AuthenticationPages/SignUpPage/SignUpPage';
+import LogInPage from './pages/AuthenticationPages/LogInPage/LogInPage';
+import CustomerFoldersPage from './pages/CustomerPages/CustomerFoldersPage/CustomerFoldersPage';
+import CustomerFilesPage from './pages/CustomerPages/CustomerFilesPage/CustomerFilesPage';
+import CustomerHomePage from './pages/CustomerPages/CustomerHomePage/CustomerHomePage';
+import AdminHomePage from './pages/AdminPages/AdminHomePage/AdminHomePage';
 
 function App() {
 
@@ -23,12 +24,14 @@ function App() {
                   <Route path="" element={<LogInPage />} />
                   <Route path="signUp" element={<SignUpPage />} />
                 </Route>
-                <Route path="/userDashboard/" element={<UserDashboard />} >   
-                  <Route path="home" element={<MyHomePage />} />   
-                  <Route path="folders" element={<MyFoldersPage />} />   
-                  <Route path="files" element={<MyFilesPage />} />   
+                <Route path="/customerDashboard/" element={<CustomerDashboard />} >   
+                  <Route path="home" element={<CustomerHomePage />} />   
+                  <Route path="folders" element={<CustomerFoldersPage />} />   
+                  <Route path="files" element={<CustomerFilesPage />} />   
                 </Route>          
-                <Route path="/adminDashboard" element={<AdminDashboard />} />          
+                <Route path="/adminDashboard" element={<AdminDashboard />} >
+                  <Route path="home" element={<AdminHomePage />} />            
+                </Route>          
             </Routes>
           </BrowserRouter>
         </UserProvider>

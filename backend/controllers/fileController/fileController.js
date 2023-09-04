@@ -24,6 +24,22 @@ const getFiles = async (req, res) => {
         console.log(error);
     }
 }
+const getFilesUploadedToday = async (req, res) => {
+    try {
+
+        const aujourdHui = new Date();
+        aujourdHui.setHours(0, 0, 0, 0); // Met à 00:00:00 pour le début de la journée
+        const demain = new Date(aujourdHui);
+        demain.setDate(demain.getDate() + 1);
+
+        const filesFound = await fileModel.find({ createdAt: { $gte: aujourdHui, $lt: demain } });
+
+        res.status(200).json({ filesFound });
+        
+    }catch(error){
+        console.log(error);
+    }
+}
 
 const getFolderFiles = async (req, res) => {
     try {
@@ -114,4 +130,4 @@ const downloadFile = asyncWrapper(async (req,res) => {
  
 })
 
-module.exports = { getOneFile, addFile, downloadFile, deleteFile, getFiles, getFolderFiles };
+module.exports = { getOneFile, addFile, downloadFile, deleteFile, getFiles, getFolderFiles, getFilesUploadedToday };

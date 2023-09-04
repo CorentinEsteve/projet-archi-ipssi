@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import "./MyHomePage.scss";
-import { UserContext } from '../../utils/contexts/userContext';
+import "./CustomerHomePage.scss";
+import { UserContext } from '../../../utils/contexts/userContext';
 
-const MyHomePage = () => {
+const CustomerHomePage = () => {
     const {user, setUser} = useContext(UserContext);
     
   return (
@@ -14,4 +14,4 @@ const MyHomePage = () => {
   )
 }
 
-export default MyHomePage
+export default CustomerHomePage

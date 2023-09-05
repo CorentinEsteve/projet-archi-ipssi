@@ -21,7 +21,6 @@ const AdminDashboard = () => {
             <Link to="/adminDashboard/customers">
               <CustomButton text="Customers" svgIcon={undefined} onClick={undefined} variant={''} />
             </Link>
-            <CustomButton text="Corbeille" svgIcon={undefined} onClick={undefined} variant={''} />
           </div>
         </div>
         <div className='UserNavBar__profileBloc' >
@@ -30,8 +29,9 @@ const AdminDashboard = () => {
         </div>
 
       </div>
-      <Outlet />
-      
+      <div className='OutletBloc'>
+        <Outlet />
+      </div>
     </section>
   )
 }

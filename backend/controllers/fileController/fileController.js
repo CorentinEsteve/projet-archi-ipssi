@@ -59,6 +59,8 @@ const addFile = asyncWrapper( async (req, res) => {
         const fileName = req.file.originalname;
         const fileSizeMb = req.file.size;
         const folderId = req.body.folderId;
+        const fileType = req.file.mimetype;
+        console.log("fileType", fileType);
 
         console.log("fileSizeMb",fileSizeMb)
 
@@ -75,7 +77,7 @@ const addFile = asyncWrapper( async (req, res) => {
     
         const userUpdated = await userModel.findByIdAndUpdate(userId, {totalStorageUsed : newTotalStorageUsed, numberOfFiles : newTotalFileNumber}, {new: true});
 
-        const file = await fileModel.create({fileName, filePath, folderId, userId, fileLabel, fileSizeMb});
+        const file = await fileModel.create({fileName, filePath, folderId, userId, fileLabel, fileSizeMb, fileType});
         res.status(201).json({ file, userUpdated })
     }catch(error){
         console.log(error);
@@ -83,26 +85,25 @@ const addFile = asyncWrapper( async (req, res) => {
 })
 
 const deleteFile = asyncWrapper( async (req, res) => {
-    try{
+    try {
+        const fileFound = await fileModel.findById(req.params.id);
 
-        const { userId, fileId, fileSizeMb, folderId } = req.body;
+        if (!fileFound) {
+            return next(new Error("No file found"));
+        }
 
-        const userFound = await userModel.findById(userId);
+        const fileName = fileFound.fileName;
+        const fileLocalPath = path.join(__dirname, `../../uploads/${fileName}`);
 
-        const newTotalStorageUsed = userFound.totalStorageUsed - fileSizeMb;
+        // Set the Content-Disposition header to suggest the filename and attachment
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
 
-        const userFoundTotalFileNumber = userFound.numberOfFiles;
-        const newTotalFileNumber = userFoundTotalFileNumber - 1;
+        // Set the Content-Type header based on the file's actual type
+        res.setHeader('Content-Type', fileFound.fileType);
 
-        const userUpdated = await userModel.findByIdAndUpdate(userId, {totalStorageUsed: newTotalStorageUsed, numberOfFiles : newTotalFileNumber},{new: true});
-
-        const fileDeleted = await fileModel.findOneAndDelete({_id : fileId});
-        DeleteLocalFile(fileDeleted.filePath);
-
-        const newFilesList = await fileModel.find({folderId});
-
-        res.status(200).json({userUpdated, newFilesList});
-
+        // Stream the file as the response
+        const fileStream = fs.createReadStream(fileLocalPath);
+        fileStream.pipe(res);
 
     }catch(error){
         console.log(error);
@@ -121,9 +122,14 @@ const downloadFile = asyncWrapper(async (req,res) => {
     
         const fileName = fileFound.fileName;
         const fileLocalPath = path.join(__dirname, `../../uploads/${fileName}`);
-    
+
+        // Set the Content-Disposition header to suggest the filename
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+
+        // Set the Content-Type header based on the file's actual type
+        res.setHeader('Content-Type', fileFound.fileType); // Set to the appropriate MIME type
+
         res.status(200).download(fileLocalPath);
-        
     }catch (error){
         console.log(error);
     }

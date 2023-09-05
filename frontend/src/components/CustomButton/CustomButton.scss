@@ -3,8 +3,9 @@
 .Button {
 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-left: 30px;
     min-width: 150px;
     max-width: 200px;
     height: 30px;
@@ -13,7 +14,7 @@
     border-radius: 0.2em;
     opacity: 0.9;
     transition: 0.3s;
-    margin: 10px;
+    margin: 0 10px;
 
     &_text {
         font-size: 14px;
@@ -47,3 +48,8 @@
     color: $primaryColor;
 }
 
+@media screen and (max-width:768px){
+    .Button {
+        margin:0;
+    }
+}

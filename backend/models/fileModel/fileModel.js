@@ -24,6 +24,10 @@ var fileSchema = new mongoose.Schema({
     fileSizeMb: {
         type: Number,
         required: true
+    },
+    fileType: {
+        type: String,
+        required: true
     }
 },{
     timestamps : true

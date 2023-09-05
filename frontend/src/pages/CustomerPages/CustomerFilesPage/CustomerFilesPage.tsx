@@ -16,6 +16,10 @@ const CustomerFilesPage = () => {
 
     const [files, setFiles] = useFetchFiles(folderId);
     const {user, setUser} = useContext(UserContext);
+    const [filesFiltered, setFilesFiltered] = useState<Array<any>>([]);
+    const [isFilesFilteredByAscending, setIsFilesFilteredByAscending] = useState(true)
+
+    console.log("files filtered inital", filesFiltered);
 
     const [fileFormData, setFileFormData] = useState<any>({})
 
@@ -59,25 +63,75 @@ const CustomerFilesPage = () => {
         localStorage.setItem("currentUser",JSON.stringify(userUpdated));
     }
 
+    function SortByDate(){
+
+      if(isFilesFilteredByAscending){
+
+        const sortedArray = [...files].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        setFilesFiltered(sortedArray);
+        setIsFilesFilteredByAscending(!isFilesFilteredByAscending);
+      }else {
+        
+        const sortedArray = [...files].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setFilesFiltered(sortedArray);
+        setIsFilesFilteredByAscending(!isFilesFilteredByAscending);
+      }
+    }
+
+    function SortByWeight(){
+
+      if(isFilesFilteredByAscending){
+        
+        const sortedArray = [...files].sort((a, b) => a.fileSizeMb - b.fileSizeMb);
+        setFilesFiltered(sortedArray);
+        setIsFilesFilteredByAscending(!isFilesFilteredByAscending);
+      }else {
+        
+        const sortedArray = [...files].sort((a, b) => b.fileSizeMb - a.fileSizeMb);
+        setFilesFiltered(sortedArray);
+        setIsFilesFilteredByAscending(!isFilesFilteredByAscending);
+      }
+    }
+
+    function SortByFileType(fileType: string){
+      const sortedArray = [...files].filter((element) => element.fileType ==fileType);
+
+      setFilesFiltered(sortedArray)
+    }
+
+    function SearchFiles(e:any){
+
+      const filesFound = [...files].filter(({fileLabel}) => fileLabel.includes(e.target.value));
+      setFilesFiltered(filesFound);
+    }
+
  
       return (
           <div className='MyFilesSection'>
             <div className='MyFilesSection__header'>
               <p className='MyFilesSection__header--title'> Mes fichiers</p> 
+              <input type="text" placeholder=' Rechercher un fichier' onChange={SearchFiles} />
               <AlertComponent title='Ajouter un fichier' buttonText='Ajouter un fichier' agreeOnClick={HandleUpload}>
                 <TextField type='text' placeholder=' Nom du fichier' name='fileLabel' onChange={handleInput}/>
                 <TextField type='file' name='file' onChange={handleFile}/>
               </AlertComponent>
             </div>
-           <div className='MyFilesSection__fileList'>
-           {
-             files.map(({fileLabel, _id, filePath, userId, fileSizeMb, folderId}, index) =>
-              <ItemComponent key={index} isFolderItem={false} buttonText={fileLabel} agreeOnClick={() => DeleteFile(_id,userId,fileSizeMb,folderId)} clickOnItem={() => {}} ><DownloadSvg fileLabel={fileLabel} href={filePath}/> </ItemComponent>
-              )
-           }
-           </div>
-           
-        </div>
+            <div className='MyFilesSection__filters'>
+              <div onClick={SortByDate}>Ordonner par dates</div>
+              <div onClick={SortByWeight}>Ordonner par poids</div>
+              <div onClick={() => SortByFileType("image/png")}>png</div>
+              <div onClick={() => SortByFileType("image/jpeg")}>jpg</div>
+              <div onClick={() => SortByFileType("application/pdf")}>pdf</div>
+              <div></div>
+            </div>
+            <div className='MyFilesSection__fileList'>
+            {
+              filesFiltered.map(({fileLabel, _id, filePath, userId, fileSizeMb, folderId}, index) =>
+                <ItemComponent key={index} isFolderItem={false} buttonText={fileLabel} agreeOnClick={() => DeleteFile(_id,userId,fileSizeMb,folderId)} clickOnItem={() => {}} ><DownloadSvg fileLabel={fileLabel} href={filePath}/> </ItemComponent>
+                )
+            }
+            </div>
+          </div>
   )
 }
 

@@ -37,9 +37,10 @@ const CustomerDashboard = () => {
           <div className='UserNavBar__profilePicture'></div>
           <p className='UserNavBar__profileText'>Profile</p>
         </div>
-
       </div>
+      <div className='OutletBloc'>
       <Outlet />
+      </div>
       
     </section>
   )

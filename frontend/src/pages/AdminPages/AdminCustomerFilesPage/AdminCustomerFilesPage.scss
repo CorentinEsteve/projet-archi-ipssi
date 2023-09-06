@@ -1,7 +1,6 @@
 .MyFilesSection {
     
     height: 90vh;
-    background-color: orange;
     padding: 20px 0;
 
     &__header {
@@ -9,7 +8,6 @@
         flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
-        background-color: green;
 
         &--title {
             font-size: 20px;

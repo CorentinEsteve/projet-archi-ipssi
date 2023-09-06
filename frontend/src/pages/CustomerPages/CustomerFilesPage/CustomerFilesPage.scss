@@ -8,10 +8,12 @@
         flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
+        padding: 0 20px;
 
         &--title {
             font-size: 20px;
             font-weight: bold;
+            color: white;
         }
     }
 
@@ -29,6 +31,10 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+
+        div:hover{
+            cursor: pointer;
+        }
     }
    
 }

@@ -6,11 +6,23 @@ const CustomerHomePage = () => {
     const {user, setUser} = useContext(UserContext);
     
   return (
-    <div>
-        <p>Total stockage utilisés : {user.totalStorageUsed}</p>
-        <p> Nombre total de fichiers : {user.numberOfFiles}</p>
-        <p> Nombre total de dossiers : {user.numberOfFolders}</p>
-        <p> Total storage purchased : {user.totalStoragePurchased}</p>
+    <div className='CustomerHomePageBloc'>
+      <div className='CustomerHomePageBloc__blocTitle'>
+        <h2 className='CustomerHomePage__title'>Dashboard</h2>
+      </div>
+      <div className='CustomerHomePageBloc__blocStats'>
+        <div className='CustomerHomePageBloc__blocStatsInner'>
+          <div><p>Total stockage utilisés : </p></div>
+          <div><p>{user.totalStorageUsed} Ko</p></div>
+          <div><p>Nombre total de fichiers :</p> </div>
+          <div><p>{user.numberOfFiles}</p></div>
+          <div><p> Nombre total de dossiers : </p></div>
+          <div><p>{user.numberOfFolders}</p></div>
+          <div><p>Total storage purchased : </p></div>
+          <div><p>{user.totalStoragePurchased} Ko</p></div>
+        </div>
+      </div>
+        
     </div>
   )
 }

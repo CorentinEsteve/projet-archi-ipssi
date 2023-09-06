@@ -19,7 +19,7 @@ const CustomerHomePage = () => {
           <div><p> Nombre total de dossiers : </p></div>
           <div><p>{user.numberOfFolders}</p></div>
           <div><p>Total storage purchased : </p></div>
-          <div><p>{user.totalStoragePurchased} Ko</p></div>
+          <div><p>{user.totalStoragePurchased} Go</p></div>
         </div>
       </div>
         

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import "./CustomerFilesPage.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from '../../../utils/contexts/userContext';
 import AlertComponent from '../../../components/AlertComponent/AlertComponent';
 import TextField from '../../../components/TextField/TextField';
@@ -8,11 +8,14 @@ import ItemComponent from '../../../components/ItemComponent/ItemComponent';
 import DownloadSvg from '../../../assets/svg/DownloadSvg';
 import useFetchFiles from '../../../utils/hooks/useFetchFiles';
 import useFetch from '../../../utils/hooks/useFetch';
+import BackComponent from '../../../components/BackComponent/BackComponent';
+import pageRedirection from '../../../utils/functions/pageRedirection';
 
 const CustomerFilesPage = () => {
 
     const location = useLocation();
     const folderId = location.state.folderInfo._id;
+    const navigate = useNavigate();
 
     const [files, setFiles] = useFetchFiles(folderId);
     const {user, setUser} = useContext(UserContext);
@@ -104,10 +107,10 @@ const CustomerFilesPage = () => {
       const filesFound = [...files].filter(({fileLabel}) => fileLabel.includes(e.target.value));
       setFilesFiltered(filesFound);
     }
-
  
       return (
           <div className='MyFilesSection'>
+            <BackComponent onClick={() => pageRedirection("/customerDashboard/folders",{},navigate)} />
             <div className='MyFilesSection__header'>
               <p className='MyFilesSection__header--title'> Mes fichiers</p> 
               <input type="text" placeholder=' Rechercher un fichier' onChange={SearchFiles} />

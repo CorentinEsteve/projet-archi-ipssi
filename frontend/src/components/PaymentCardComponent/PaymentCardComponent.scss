@@ -1,0 +1,50 @@
+@use "../../utils//constants/constants.scss" as *;
+
+.PaymentCardComponent {
+    height: 400px;
+    width: 300px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    margin: 20px;
+
+    &__price {
+        height: 15%;
+        width: 100%;
+        background-color: $secondaryColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+    }
+    
+    &__description {
+        height: 65%;
+        width: 100%;
+        
+        p {
+            margin: 10px;
+        }
+    }
+    
+    &__purchaseButton {
+        height: 10%;
+        width: 80%;
+        background-color: green;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 20px;
+        transition: 0.3s;
+
+        &:hover {
+            box-shadow: 0 0 5px white;
+            cursor: pointer;
+        }
+    }
+}

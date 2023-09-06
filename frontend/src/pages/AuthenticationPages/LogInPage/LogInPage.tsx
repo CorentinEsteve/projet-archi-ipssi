@@ -32,11 +32,11 @@ const LogInPage = () => {
        localStorage.setItem("token",token);
 
        if(token!=null && role=="customer"){
-        navigate("/customerDashboard");
+        navigate("/customerDashboard/home");
        }
        
        if (token !=null && role=="admin"){
-        navigate("/adminDashboard");
+        navigate("/adminDashboard/home");
        }
      }
 

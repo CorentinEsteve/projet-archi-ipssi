@@ -9,34 +9,41 @@ const AdminHomePage = () => {
     const [users, setUsers] = useFetchAllUsers();
     const [filesUploadedToday, setFilesUploadedToday] = useFetchFilesUploadedToday();
 
-    console.log("files uploaded today", filesUploadedToday);
-    console.log("number files uploaded today", filesUploadedToday.length);
-
     const numberFilesUploadedToday = filesUploadedToday.length;
 
     const TotalFilesNumber = users.reduce((acc, user) => acc + user.numberOfFiles,0);
 
-
-
-    console.log('total fichier', TotalFilesNumber);
-
-    console.log("AllCustomers", users);
-
   return (
-    <div>
-        {
-            users.map((user) => {
-                return (
-                <div className='UserFileNumber'>
-                    <p>{user.name}</p><p>{user.firstName}</p><p>{user.numberOfFiles} fichiers</p><p>{user.numberOfFolders} dossiers</p>
-                </div>)
-            })
-
-        }
-        <h2>
-            Il y a au total {TotalFilesNumber} fichiers.
-        </h2>
-        <h2>Dont {numberFilesUploadedToday} uploadé aujourd'hui !</h2>
+    <div className='AdminHomePageBloc'>
+        <div className='AdminHomePageBloc__blocTitle'>
+            <h2 className='AdminHomePage__title'>Dashboard</h2>
+        </div>
+        <div className='AdminHomePageBloc__blocListUsers'>
+            <div className='AdminHomePageBloc__listUsers'>
+                <div className='AdminHomePageBloc__listUsers--headercells'>
+                    <div>Nom</div>
+                    <div>Prénom</div>
+                    <div>Nombre total de fichier</div>
+                    <div>Nombre total de dossier</div>
+                </div>
+                {
+                    
+                    users.map((user) => {
+                        return (
+                            <div className='AdminHomePageBloc__userCell'>
+                                <div>{user.name}</div><div>{user.firstName}</div><div className='AdminHomePageBloc__userCell--statsnumber'>{user.numberOfFiles}</div><div className='AdminHomePageBloc__userCell--statsnumber'>{user.numberOfFolders}</div>
+                            </div>
+                        )
+                    })
+                    
+                }
+            </div>
+        </div>
+        <div className='AdminHomePageBloc__bottomStats'>
+            <p>Il y a au total {TotalFilesNumber} fichiers. </p>
+            <p> Dont {numberFilesUploadedToday} uploadé aujourd'hui !</p>
+        </div>
+        
     </div>
   )
 }

@@ -16,6 +16,7 @@ import AdminCustomersPage from './pages/AdminPages/AdminCustomersPage/AdminCusto
 import AdminCustomerFoldersPage from './pages/AdminPages/AdminCustomerFoldersPage/AdminCustomerFoldersPage';
 import AdminCustomerFilesPage from './pages/AdminPages/AdminCustomerFilesPage/AdminCustomerFilesPage';
 import CustomerProfilePage from './pages/CustomerPages/CustomerProfilePage/CustomerProfilePage';
+import CustomerPaymentPage from './pages/CustomerPages/CustomerPaymentPage/CustomerPaymentPage';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
                   <Route path="folders" element={<CustomerFoldersPage />} />   
                   <Route path="files" element={<CustomerFilesPage />} />   
                   <Route path="profile" element={<CustomerProfilePage />} />   
+                  <Route path="payment" element={<CustomerPaymentPage />} />   
                 </Route>          
                 <Route path="/adminDashboard/" element={<AdminDashboard />} >
                   <Route path="customers" element={<AdminCustomersPage />} />            

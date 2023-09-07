@@ -39,6 +39,7 @@ function App() {
                 <Route path="/adminDashboard/" element={<AdminDashboard />} >
                   <Route path="customers" element={<AdminCustomersPage />} />            
                   <Route path="home" element={<AdminHomePage />} />  
+                  <Route path="profile" element={<CustomerProfilePage />} />   
                   <Route path="customerFolders" element={<AdminCustomerFoldersPage />} />           
                   <Route path="customerFiles" element={<AdminCustomerFilesPage />} />  
                 </Route>          

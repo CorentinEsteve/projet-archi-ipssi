@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import "./CustomerDashboard.scss";
 import BannerComponent from '../../../components/BannerComponent/BannerComponent';
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import { Link, Outlet } from 'react-router-dom';
+import { UserContext } from '../../../utils/contexts/userContext';
+import customerProfileSvg from "../../../assets/profile-customer-icon.svg";
+import folderSvgIcon from "../../../assets/folder_icon_20px.svg";
+import customerDashboardIcon from "../../../assets/customer-dashboard-icon.svg";
 
 const CustomerDashboard = () => {
 
+  const {user, setUser} = useContext(UserContext);
+  
   return (
     <section className='UserDashboard'>
       <div className='UserNavBar'>
@@ -16,19 +22,19 @@ const CustomerDashboard = () => {
         <div className="UserNavBar__middleBloc" >
           <div  className='UserNavBar__navigations'>
             <Link to="/customerDashboard/home">
-              <CustomButton text="Dashboard" svgIcon={undefined} onClick={undefined} variant={''} />
+              <CustomButton text="Accueil" svgIcon={customerDashboardIcon} onClick={undefined} variant={''} />
             </Link>
             <Link to="/customerDashboard/folders">
-              <CustomButton text="My folders" svgIcon={undefined} onClick={undefined} variant={''} />
+              <CustomButton text="Dossiers" svgIcon={folderSvgIcon} onClick={undefined} variant={''} />
             </Link>
             <Link to="/customerDashboard/profile">
-              <CustomButton text="Profile" svgIcon={undefined} onClick={undefined} variant={''} />
+              <CustomButton text="Profil" svgIcon={customerProfileSvg} onClick={undefined} variant={''} />
             </Link>
           </div>
           <div className='StorageIndicatorComponent'>
             <div className='StorageIndicatorComponent__title' ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" id="cloud"><path fill='#ffff' d="M18.42,9.21a7,7,0,0,0-13.36,1.9A4,4,0,0,0,6,19H17a5,5,0,0,0,1.42-9.79ZM17,17H6a2,2,0,0,1,0-4,1,1,0,0,0,1-1,5,5,0,0,1,9.73-1.61,1,1,0,0,0,.78.66A3,3,0,0,1,17,17Z"></path></svg><p>Stockage</p></div>
             <div className='StorageIndicatorComponent__blocProgress'><div  className='StorageIndicatorComponent__progress'></div></div>
-            <div className='StorageIndicatorComponent__checkStorage'>4,9Go libre sur 20Go</div>
+            <div className='StorageIndicatorComponent__checkStorage'>4,9Go libre sur {user.totalStoragePurchased}Go</div>
             <Link to="/customerDashboard/payment">
             <a className='StorageIndicatorComponent__linkIncreaseStorage' href="#"> Augmenter mon stockage</a>
             </Link>
@@ -37,7 +43,7 @@ const CustomerDashboard = () => {
         </div>
         <div className='UserNavBar__profileBloc' >
           <div className='UserNavBar__profilePicture'></div>
-          <p className='UserNavBar__profileText'>Profile</p>
+          <p className='UserNavBar__profileText'>Profil</p>
         </div>
       </div>
       <div className='OutletBloc'>

@@ -1,5 +1,13 @@
 const stripe = require('stripe')('sk_test_51NjToNBdjD7XjhkGbYAMaoObG1FmrEhepiMdIGigaVsd22ahL6xmKZfIRHezZy2SG6RaruRl4kp1yPULHEMxhCA30082KsfzdH');
+
 const stripePayment = async (req, res) => {
+
+  console.log("iSignUpStep", req.params.isSignUpStep);
+  const isSignUpStep = req.params.isSignUpStep;
+  
+
+  const cancelUrl = isSignUpStep == "true" ? "http://localhost:3000/signUp?canceled=true": "http://localhost:3000/customerDashboard/payment?canceled=true";
+  console.log("cancelUrl",cancelUrl);
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -12,10 +20,9 @@ const stripePayment = async (req, res) => {
       invoice_creation: {
         enabled: true
       },
-      billing_address_collection: 'required',
       mode: 'payment',
       success_url: "http://localhost:3000/customerDashboard/payment?success=true",
-      cancel_url: "http://localhost:3000/customerDashboard/payment?canceled=true"
+      cancel_url: cancelUrl
     });
 
     res.status(200).json(session);

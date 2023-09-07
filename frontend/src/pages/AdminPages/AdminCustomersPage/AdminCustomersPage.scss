@@ -1,0 +1,47 @@
+@use "../../../utils/constants/constants.scss" as *;
+
+
+.AdminHomePageBloc {
+    height: 100%;
+
+    &__blocTitle {
+        height: 10%;
+    }
+
+    &__blocListCustomers {
+        height: 90%;
+        display: flex;
+        justify-content: center;
+
+        &--inner {
+        }
+    }
+}
+.CustomerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50vw;
+    color: white;
+    border: 1px solid white;
+    margin: 15px;
+    transition: 0.3s;
+    height: 30px;
+
+    &:hover {
+        cursor: pointer;
+        color: $secondaryColor;
+        background-color: white;
+        font-weight: bold;
+    }
+
+    p {
+        padding-left: 10px;
+        text-align: start;
+        width: 25%;
+
+        span {
+            color: $secondaryColor;
+        }
+    }
+}

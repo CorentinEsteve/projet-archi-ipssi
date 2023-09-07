@@ -8,7 +8,7 @@ const CustomerHomePage = () => {
   return (
     <div className='CustomerHomePageBloc'>
       <div className='CustomerHomePageBloc__blocTitle'>
-        <h2 className='CustomerHomePage__title'>Dashboard</h2>
+        <h2 className='CustomerHomePage__title'>Accueil</h2>
       </div>
       <div className='CustomerHomePageBloc__blocStats'>
         <div className='CustomerHomePageBloc__blocStatsInner'>

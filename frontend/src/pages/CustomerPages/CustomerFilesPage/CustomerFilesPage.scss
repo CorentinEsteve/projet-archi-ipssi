@@ -1,7 +1,9 @@
+@use "../../../utils/constants/constants.scss" as *;
+
 .MyFilesSection {
     padding: 0 20px;
-    width: 100%;
-    height: 100vh;
+    width: 97%;
+    height: 100%;
 
     &__header {
         display: flex;
@@ -23,7 +25,7 @@
     }
 
     &__filters {
-        width: 100%;
+        width: 96%;
         height: 60px;
         background-color: darkcyan;
         color: white;
@@ -31,10 +33,21 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+        margin-left: 20px;
 
         div:hover{
             cursor: pointer;
         }
     }
-   
+    
+    &__messageNewFolderAdded{
+        color: green;
+        font-weight: bold;
+        margin-left: 20px;
+    }
+}
+
+.focusColor {
+    color: $primaryColor;
+    font-weight: bold;
 }
